@@ -3,153 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web3 Marketing Builders - 3D</title>
+    <title>Interactive Animations</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Arial', sans-serif;
             background: #0a0a0a;
             color: white;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            cursor: none;
         }
-        
-        .container {
-            width: 100%;
-            height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
         }
 
         .section {
-            width: 100%;
             height: 100vh;
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            transform: translateY(100px) scale(0.95);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
         }
 
-        .section.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
+        .content {
+            text-align: center;
+            z-index: 100;
+            position: relative;
         }
 
-        .section.prev {
-            opacity: 0.3;
-            transform: translateY(-50px) scale(0.98);
+        .content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
         }
 
-        .section.next {
-            opacity: 0.3;
-            transform: translateY(50px) scale(0.98);
+        .content p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
+        /* Section 1: Magnetic Orbs */
+        .section1 {
+            background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0a0a0a 100%);
+        }
 
-        
-        #three-canvas {
+        .magnetic-orb {
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: auto;
-            opacity: 0;
-            transform: translateX(100px) rotateY(15deg);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            border-radius: 50%;
+            opacity: 0.7;
+            filter: blur(1px);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.4);
         }
 
-        #three-canvas-2 {
+        /* Section 2: Geometric Grid */
+        .section2 {
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+        }
+
+        .grid-item {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 50%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: auto;
-            opacity: 0;
-            transform: translateX(-100px) rotateY(-15deg);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease-out;
         }
 
-        #three-canvas-3 {
+        /* Section 3: Particle System */
+        .section3 {
+            background: radial-gradient(circle at 20% 80%, #120136 0%, #035aa6 40%, #40bad5 100%);
+        }
+
+        .particle {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: auto;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: all 0.1s linear;
         }
 
-        .section.active #three-canvas,
-        .section.active #three-canvas-2,
-        .section.active #three-canvas-3 {
-            opacity: 1;
-            transform: translateX(0) rotateY(0deg) scale(1);
+        /* Section 4: Liquid Morphing */
+        .section4 {
+            background: linear-gradient(45deg, #fa709a 0%, #fee140 100%);
         }
-        
-        .header {
+
+        .liquid-blob {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 3;
-            padding: 2rem 5% 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #a855f7;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-        
-        .nav-links a {
-            color: #d1d5db;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            color: #a855f7;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            filter: blur(2px);
+            opacity: 0.7;
         }
 
-        /* Navigation Dots */
-        .nav-dots {
+        /* Section 5: 3D Floating Cards */
+        .section5 {
+            background: linear-gradient(225deg, #ff3cac 0%, #784ba0 50%, #2b86ab 100%);
+            perspective: 1000px;
+        }
+
+        .floating-card {
+            position: absolute;
+            width: 120px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav {
             position: fixed;
-            right: 2rem;
+            right: 30px;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            z-index: 1000;
         }
 
         .nav-dot {
@@ -157,1526 +154,364 @@
             height: 12px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.3);
-            border: 2px solid rgba(168, 85, 247, 0.5);
+            margin: 15px 0;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-        }
-
-        .nav-dot::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 0;
-            height: 0;
-            background: linear-gradient(45deg, #a855f7, #ec4899);
-            border-radius: 50%;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .nav-dot:hover {
-            background: rgba(255, 255, 255, 0.5);
-            border-color: #a855f7;
-            transform: scale(1.2);
-        }
-
-        .nav-dot:hover::before {
-            width: 8px;
-            height: 8px;
+            transition: all 0.3s ease;
         }
 
         .nav-dot.active {
-            background: rgba(168, 85, 247, 0.8);
-            border-color: #a855f7;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+            background: #ff006e;
+            transform: scale(1.3);
         }
 
-        .nav-dot.active::before {
-            width: 6px;
-            height: 6px;
-            background: #ffffff;
-        }
-
-        .nav-dot-label {
-            position: absolute;
-            right: 25px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            white-space: nowrap;
-        }
-
-        .nav-dot:hover .nav-dot-label {
-            opacity: 1;
-            transform: translateY(-50%) translateX(-5px);
-        }
-        
-        .content-overlay {
-            position: absolute;
-            left: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2;
-            text-align: left;
-            pointer-events: none;
-            max-width: 45%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            opacity: 0;
-            transform: translateX(-100px) translateY(-50%);
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
-        }
-
-        .content-overlay-right {
-            position: absolute;
-            right: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2;
-            text-align: right;
-            pointer-events: none;
-            max-width: 45%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            opacity: 0;
-            transform: translateX(100px) translateY(-50%);
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
-        }
-
-        .content-overlay-center {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 3;
-            text-align: center;
-            pointer-events: none;
-            max-width: 70%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
-        }
-
-        .section.active .content-overlay {
-            opacity: 1;
-            transform: translateX(0) translateY(-50%);
-        }
-
-        .section.active .content-overlay-right {
-            opacity: 1;
-            transform: translateX(0) translateY(-50%);
-        }
-
-        .section.active .content-overlay-center {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-        
-        .title-section {
-            margin-bottom: 2rem;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            color: #a855f7;
-            font-weight: 400;
-            letter-spacing: 0.1em;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        .main-title {
-            font-size: clamp(2.5rem, 8vw, 6rem);
-            font-weight: 700;
-            line-height: 0.9;
-            margin-bottom: 2rem;
-            position: relative;
-        }
-        
-        .title-line {
-            display: block;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: -0.1em;
-        }
-        
-        .title-line span {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .section.active .title-line:nth-child(1) span {
-            opacity: 1;
-            transform: translateY(0);
-            transition-delay: 0.2s;
-            background: linear-gradient(45deg, #ffffff, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section.active .title-line:nth-child(2) span {
-            opacity: 1;
-            transform: translateY(0);
-            transition-delay: 0.3s;
-            background: linear-gradient(45deg, #c084fc, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section.active .subtitle {
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
-        }
-
-        .section.active .description {
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s;
-        }
-
-        .subtitle,
-        .description {
-            opacity: 0;
-            transform: translateY(30px);
-        }        .description {
-            font-size: 1.1rem;
-            color: #d1d5db;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-            animation: fadeInUp 1s ease-out 0.8s both;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-        }
-        
-        /* Grid overlay removed - no more big squares */
-        
-        @keyframes slideInLeft {
-            to {
-                transform: translateX(0);
+        @media (max-width: 768px) {
+            .content h1 {
+                font-size: 2.5rem;
             }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
-            }
-            50% {
-                text-shadow: 0 0 40px rgba(168, 85, 247, 0.8), 0 0 60px rgba(236, 72, 153, 0.4);
-            }
-        }
-
-        .glow-text {
-            animation: glow 3s ease-in-out infinite;
-        }
-
-        .section-2 .title-line span {
-            animation: slideInRight 1.2s ease-out forwards;
-            transform: translateX(100%);
-        }
-
-        .section-3 .title-line span {
-            animation: slideInUp 1.2s ease-out forwards;
-            transform: translateY(100%);
-        }        @media (max-width: 768px) {
-            .main-title {
-                font-size: clamp(1.8rem, 6vw, 3.5rem);
-            }
-            
-            .description {
+            .content p {
                 font-size: 1rem;
-                padding: 0 2rem;
-            }
-            
-            .content-overlay {
-                max-width: 90%;
-                left: 5%;
-            }
-
-            .nav-dots {
-                right: 1rem;
-                gap: 0.8rem;
-            }
-
-            .nav-dot {
-                width: 10px;
-                height: 10px;
-            }
-
-            .nav-dot-label {
-                font-size: 0.7rem;
-                padding: 0.2rem 0.6rem;
+                padding: 0 20px;
             }
         }
     </style>
 </head>
 <body>
-    <script>
-        // Force scroll to top immediately when page starts loading
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-    </script>
+    <div class="cursor" id="cursor"></div>
     
-    <!-- Navigation Dots -->
-    <div class="nav-dots">
-        <div class="nav-dot active" data-section="0">
-            <div class="nav-dot-label">Building Tomorrow</div>
-        </div>
-        <div class="nav-dot" data-section="1">
-            <div class="nav-dot-label">Digital Excellence</div>
-        </div>
-        <div class="nav-dot" data-section="2">
-            <div class="nav-dot-label">Innovation Unleashed</div>
-        </div>
-    </div>
+    <nav class="nav">
+        <div class="nav-dot active" onclick="scrollToSection(0)"></div>
+        <div class="nav-dot" onclick="scrollToSection(1)"></div>
+        <div class="nav-dot" onclick="scrollToSection(2)"></div>
+        <div class="nav-dot" onclick="scrollToSection(3)"></div>
+        <div class="nav-dot" onclick="scrollToSection(4)"></div>
+    </nav>
 
-    <div class="section" id="section1">
-        <div class="header">
-            <div class="logo">SCRIB3</div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#section1">HOME</a></li>
-                    <li><a href="#section2">SERVICES</a></li>
-                    <li><a href="#section3">INNOVATION</a></li>
-                    <li><a href="#careers">CAREERS</a></li>
-                </ul>
-            </nav>
+    <!-- Section 1: Magnetic Orbs -->
+    <section class="section section1" id="section1">
+        <div class="content">
+            <h1>Magnetic Orbs</h1>
+            <p>Watch as these glowing orbs are drawn to your cursor, creating mesmerizing trails of light and energy.</p>
         </div>
-        
-        <!-- Grid overlay removed - no more big squares -->
-        <canvas id="three-canvas"></canvas>
-        
-        <div class="content-overlay">
-            <div class="title-section">
-                <div class="subtitle">THE FUTURE OF WEB3 MARKETING</div>
-                <h1 class="main-title">
-                    <div class="title-line"><span>BUILDING</span></div>
-                    <div class="title-line"><span>TOMORROW</span></div>
-                </h1>
-            </div>
-            
-            <div class="description">
-                We're a crypto-native team empowering visionaries and builders with cutting-edge marketing strategies for the decentralized future.
-            </div>
-        </div>
-    </div>
+    </section>
 
-    <!-- Section 2: Services -->
-    <div class="section section-2" id="section2">
-        <canvas id="three-canvas-2"></canvas>
-        
-        <div class="content-overlay-right">
-            <div class="title-section">
-                <div class="subtitle glow-text">COMPREHENSIVE SOLUTIONS</div>
-                <h1 class="main-title">
-                    <div class="title-line"><span>DIGITAL</span></div>
-                    <div class="title-line"><span>EXCELLENCE</span></div>
-                </h1>
-            </div>
-            
-            <div class="description">
-                From blockchain integration to immersive experiences, we deliver cutting-edge solutions that transform your digital presence in the Web3 ecosystem.
-            </div>
+    <!-- Section 2: Geometric Grid -->
+    <section class="section section2" id="section2">
+        <div class="content">
+            <h1>Geometric Grid</h1>
+            <p>Interactive 3D grid that responds to your mouse movement with perspective transformations and dynamic opacity.</p>
         </div>
-    </div>
+    </section>
 
-    <!-- Section 3: Innovation -->
-    <div class="section section-3" id="section3">
-        <canvas id="three-canvas-3"></canvas>
-        
-        <div class="content-overlay-center">
-            <div class="title-section">
-                <div class="subtitle glow-text">PUSHING BOUNDARIES</div>
-                <h1 class="main-title">
-                    <div class="title-line"><span>INNOVATION</span></div>
-                    <div class="title-line"><span>UNLEASHED</span></div>
-                </h1>
-            </div>
-            
-            <div class="description">
-                Explore the limitless possibilities of decentralized technology. We craft experiences that bridge the gap between imagination and reality.
-            </div>
+    <!-- Section 3: Particle System -->
+    <section class="section section3" id="section3">
+        <div class="content">
+            <h1>Particle Galaxy</h1>
+            <p>Thousands of particles create a cosmic dance, forming constellations that shift with your cursor's path.</p>
         </div>
-    </div>
+    </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Section 4: Liquid Morphing -->
+    <section class="section section4" id="section4">
+        <div class="content">
+            <h1>Liquid Dreams</h1>
+            <p>Fluid blobs morph and stretch, creating organic shapes that pulse and breathe with life.</p>
+        </div>
+    </section>
+
+    <!-- Section 5: 3D Floating Cards -->
+    <section class="section section5" id="section5">
+        <div class="content">
+            <h1>Floating Dimensions</h1>
+            <p>Experience depth as translucent cards float in 3D space, tilting and rotating in response to your presence.</p>
+        </div>
+    </section>
+
     <script>
-        // ========== SECTION 1: Original geometric scene ==========
-        const scene1 = new THREE.Scene();
-        const camera1 = new THREE.PerspectiveCamera(60, (window.innerWidth * 0.5) / window.innerHeight, 0.1, 1000);
-        const renderer1 = new THREE.WebGLRenderer({ 
-            canvas: document.getElementById('three-canvas'),
-            alpha: true,
-            antialias: true
-        });
-        
-        renderer1.setSize(window.innerWidth * 0.5, window.innerHeight);
-        renderer1.setClearColor(0x000000, 0);
-        
-        // Lighting for scene 1
-        const ambientLight1 = new THREE.AmbientLight(0x404040, 0.4);
-        scene1.add(ambientLight1);
-        
-        const directionalLight1 = new THREE.DirectionalLight(0xa855f7, 1);
-        directionalLight1.position.set(5, 5, 5);
-        scene1.add(directionalLight1);
-        
-        const pointLight1_1 = new THREE.PointLight(0xec4899, 0.8, 50);
-        pointLight1_1.position.set(-10, 5, 5);
-        scene1.add(pointLight1_1);
-        
-        const pointLight1_2 = new THREE.PointLight(0x10b981, 0.6, 50);
-        pointLight1_2.position.set(10, -5, 5);
-        scene1.add(pointLight1_2);
-        
-        // Create main 3D object for scene 1
-        const mainGroup1 = new THREE.Group();
-        
-        // Central futuristic building complex representing "Building Tomorrow"
-        const buildingGroup = new THREE.Group();
-        
-        // Main tower - Central skyscraper (smaller size)
-        const mainTowerGeo = new THREE.CylinderGeometry(0.1, 0.15, 1.5, 8);
-        const mainTowerMat = new THREE.MeshPhongMaterial({
-            color: 0x4f46e5,
-            shininess: 100,
-            transparent: true,
-            opacity: 0.9
-        });
-        const mainTower = new THREE.Mesh(mainTowerGeo, mainTowerMat);
-        mainTower.position.y = 0.2;
-        buildingGroup.add(mainTower);
-        
-        // Secondary towers around main building (smaller round towers)
-        for(let i = 0; i < 4; i++) {
-            const angle = (i / 4) * Math.PI * 2;
-            const towerGeo = new THREE.CylinderGeometry(0.05, 0.08, 0.4 + Math.random() * 0.3, 6);
-            const towerMat = new THREE.MeshPhongMaterial({
-                color: new THREE.Color().setHSL(0.7 + i * 0.05, 0.8, 0.6),
-                shininess: 80,
-                transparent: true,
-                opacity: 0.8
-            });
-            const tower = new THREE.Mesh(towerGeo, towerMat);
-            tower.position.set(
-                Math.cos(angle) * 0.4,
-                -0.15,
-                Math.sin(angle) * 0.4
-            );
-            buildingGroup.add(tower);
-        }
-        
-        // Connecting bridges/platforms (smaller)
-        for(let i = 0; i < 2; i++) {
-            const bridgeGeo = new THREE.BoxGeometry(0.9, 0.03, 0.05);
-            const bridgeMat = new THREE.MeshPhongMaterial({
-                color: 0xa855f7,
-                shininess: 60,
-                transparent: true,
-                opacity: 0.7
-            });
-            const bridge = new THREE.Mesh(bridgeGeo, bridgeMat);
-            bridge.position.y = -0.2 + i * 0.3;
-            bridge.rotation.y = (i * Math.PI) / 2;
-            buildingGroup.add(bridge);
-        }
-        
-        // Energy core at the top (smaller size)
-        const energyCoreGeo = new THREE.SphereGeometry(0.07, 16, 16);
-        const energyCoreMat = new THREE.MeshPhongMaterial({
-            color: 0x00ffff,
-            shininess: 100,
-            transparent: true,
-            opacity: 0.9,
-            emissive: 0x002244
-        });
-        const energyCore = new THREE.Mesh(energyCoreGeo, energyCoreMat);
-        energyCore.position.y = 1.0; // Adjusted for smaller tower
-        buildingGroup.add(energyCore);
-        
-        // Foundation/base platform (smaller to stay in frame)
-        const baseGeo = new THREE.CylinderGeometry(0.5, 0.6, 0.08, 8);
-        const baseMat = new THREE.MeshPhongMaterial({
-            color: 0x374151,
-            shininess: 40,
-            transparent: true,
-            opacity: 0.8
-        });
-        const base = new THREE.Mesh(baseGeo, baseMat);
-        base.position.y = -0.6;
-        buildingGroup.add(base);
-        
-        const core1 = buildingGroup; // Keep the same variable name for animation compatibility
-        mainGroup1.add(core1);
-        
-        // Outer ring - Torus (representing orbital infrastructure)
-        const ringGeometry1 = new THREE.TorusGeometry(2.5, 0.2, 8, 100);
-        const ringMaterial1 = new THREE.MeshPhongMaterial({
-            color: 0xec4899,
-            shininess: 80,
-            transparent: true,
-            opacity: 0.6
-        });
-        const ring1 = new THREE.Mesh(ringGeometry1, ringMaterial1);
-        ring1.rotation.x = Math.PI / 4;
-        mainGroup1.add(ring1);
-        
-        // Orbiting elements for scene 1
-        const orbitElements1 = [];
-        for(let i = 0; i < 6; i++) {
-            const elementGeometry = new THREE.OctahedronGeometry(0.3);
-            const elementMaterial = new THREE.MeshPhongMaterial({
-                color: new THREE.Color().setHSL(i / 6, 0.8, 0.6),
-                shininess: 100
-            });
-            const element = new THREE.Mesh(elementGeometry, elementMaterial);
-            
-            const angle = (i / 6) * Math.PI * 2;
-            element.position.set(
-                Math.cos(angle) * 3,
-                Math.sin(angle * 1.5) * 0.5,
-                Math.sin(angle) * 3
-            );
-            
-            orbitElements1.push({
-                mesh: element,
-                angle: angle,
-                radius: 3 + Math.sin(i) * 0.5
-            });
-            
-            mainGroup1.add(element);
-        }
-        
-        // Wireframe overlay for scene 1
-        const wireframeGeometry1 = new THREE.IcosahedronGeometry(1.8, 0);
-        const wireframeMaterial1 = new THREE.MeshBasicMaterial({
-            color: 0x00ffff,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.3
-        });
-        const wireframe1 = new THREE.Mesh(wireframeGeometry1, wireframeMaterial1);
-        mainGroup1.add(wireframe1);
-        
-        scene1.add(mainGroup1);
-        camera1.position.set(0, 0, 10);
-        camera1.lookAt(0, 0, 0);
-
-        // ========== SECTION 2: Spiral DNA-like structure ==========
-        const scene2 = new THREE.Scene();
-        const camera2 = new THREE.PerspectiveCamera(70, (window.innerWidth * 0.5) / window.innerHeight, 0.1, 1000);
-        const renderer2 = new THREE.WebGLRenderer({ 
-            canvas: document.getElementById('three-canvas-2'),
-            alpha: true,
-            antialias: true
-        });
-        
-        renderer2.setSize(window.innerWidth * 0.5, window.innerHeight);
-        renderer2.setClearColor(0x000000, 0);
-        
-        // Lighting for scene 2
-        const ambientLight2 = new THREE.AmbientLight(0x1a1a2e, 0.3);
-        scene2.add(ambientLight2);
-        
-        const pointLight2_1 = new THREE.PointLight(0x00ffff, 1.2, 100);
-        pointLight2_1.position.set(0, 5, 5);
-        scene2.add(pointLight2_1);
-        
-        const pointLight2_2 = new THREE.PointLight(0xff6b35, 0.8, 100);
-        pointLight2_2.position.set(0, -5, 5);
-        scene2.add(pointLight2_2);
-        
-        // Create spiral DNA-like structure
-        const mainGroup2 = new THREE.Group();
-        const helixElements = [];
-        
-        for(let i = 0; i < 60; i++) {
-            const t = i / 60;
-            const angle = t * Math.PI * 8;
-            const height = (t - 0.5) * 8;
-            
-            // First helix
-            const sphere1Geo = new THREE.SphereGeometry(0.15, 8, 8);
-            const sphere1Mat = new THREE.MeshPhongMaterial({
-                color: new THREE.Color().setHSL(t * 0.3 + 0.5, 0.8, 0.6),
-                shininess: 100
-            });
-            const sphere1 = new THREE.Mesh(sphere1Geo, sphere1Mat);
-            sphere1.position.set(
-                Math.cos(angle) * 2,
-                height,
-                Math.sin(angle) * 2
-            );
-            
-            // Second helix (opposite)
-            const sphere2 = sphere1.clone();
-            sphere2.position.set(
-                Math.cos(angle + Math.PI) * 2,
-                height,
-                Math.sin(angle + Math.PI) * 2
-            );
-            sphere2.material = new THREE.MeshPhongMaterial({
-                color: new THREE.Color().setHSL(t * 0.3 + 0.8, 0.8, 0.6),
-                shininess: 100
-            });
-            
-            helixElements.push({ mesh1: sphere1, mesh2: sphere2, t: t });
-            mainGroup2.add(sphere1);
-            mainGroup2.add(sphere2);
-            
-            // Connect with lines every few elements
-            if(i % 3 === 0 && i < 57) {
-                const lineGeo = new THREE.BufferGeometry().setFromPoints([
-                    sphere1.position,
-                    sphere2.position
-                ]);
-                const lineMat = new THREE.LineBasicMaterial({
-                    color: 0x4a90e2,
-                    transparent: true,
-                    opacity: 0.4
-                });
-                const line = new THREE.Line(lineGeo, lineMat);
-                mainGroup2.add(line);
-            }
-        }
-        
-        scene2.add(mainGroup2);
-        camera2.position.set(6, 0, 8);
-        camera2.lookAt(0, 0, 0);
-
-        // ========== SECTION 3: Abstract crystal formation ==========
-        const scene3 = new THREE.Scene();
-        const camera3 = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer3 = new THREE.WebGLRenderer({ 
-            canvas: document.getElementById('three-canvas-3'),
-            alpha: true,
-            antialias: true
-        });
-        
-        renderer3.setSize(window.innerWidth, window.innerHeight);
-        renderer3.setClearColor(0x000000, 0);
-        
-        // Lighting for scene 3
-        const ambientLight3 = new THREE.AmbientLight(0x2a0a2a, 0.4);
-        scene3.add(ambientLight3);
-        
-        const spotLight3 = new THREE.SpotLight(0xff00ff, 1.5, 50, Math.PI / 4, 0.1);
-        spotLight3.position.set(0, 10, 0);
-        spotLight3.target.position.set(0, 0, 0);
-        scene3.add(spotLight3);
-        scene3.add(spotLight3.target);
-        
-        const pointLight3_1 = new THREE.PointLight(0x00ff88, 0.8, 30);
-        pointLight3_1.position.set(5, 0, 5);
-        scene3.add(pointLight3_1);
-        
-        // Create crystal formation around center (leaving space for text)
-        const mainGroup3 = new THREE.Group();
-        const crystals = [];
-        
-        // Create perfect circle of crystals around text area
-        const textClearanceRadius = 8; // Safe distance from center for text
-        
-        // Main circle of crystals
-        for(let i = 0; i < 12; i++) {
-            const angle = (i / 12) * Math.PI * 2;
-            const radius = textClearanceRadius; // Fixed radius for perfect circle
-            
-            const crystalGeo = new THREE.ConeGeometry(0.4 + Math.random() * 0.3, 2 + Math.random() * 1.5, 6);
-            const crystalMat = new THREE.MeshPhongMaterial({
-                color: new THREE.Color().setHSL(i / 12 + 0.7, 0.9, 0.7),
-                shininess: 100,
-                transparent: true,
-                opacity: 0.8
-            });
-            const crystal = new THREE.Mesh(crystalGeo, crystalMat);
-            
-            crystal.position.set(
-                Math.cos(angle) * radius,
-                Math.sin(i * 0.4) * 1.5, // Slight vertical variation
-                Math.sin(angle) * radius
-            );
-            crystal.rotation.x = Math.random() * Math.PI;
-            crystal.rotation.z = Math.random() * Math.PI;
-            
-            crystals.push(crystal);
-            mainGroup3.add(crystal);
-        }
-        
-        // Outer circle of smaller crystals
-        for(let i = 0; i < 8; i++) {
-            const angle = (i / 8) * Math.PI * 2 + 0.4; // Offset angle for staggered look
-            const radius = textClearanceRadius + 4; // Outer ring
-            
-            const crystalGeo = new THREE.ConeGeometry(0.25 + Math.random() * 0.2, 1.2 + Math.random() * 1, 6);
-            const crystalMat = new THREE.MeshPhongMaterial({
-                color: new THREE.Color().setHSL(i / 8 + 0.5, 0.8, 0.5),
-                shininess: 100,
-                transparent: true,
-                opacity: 0.6
-            });
-            const crystal = new THREE.Mesh(crystalGeo, crystalMat);
-            
-            crystal.position.set(
-                Math.cos(angle) * radius,
-                Math.sin(i * 0.6) * 2,
-                Math.sin(angle) * radius
-            );
-            crystal.rotation.x = Math.random() * Math.PI;
-            crystal.rotation.z = Math.random() * Math.PI;
-            
-            crystals.push(crystal);
-            mainGroup3.add(crystal);
-        }
-        
-        // Background floating crystals (far from center)
-        for(let i = 0; i < 6; i++) {
-            const angle = (i / 6) * Math.PI * 2;
-            const radius = textClearanceRadius + 8 + Math.random() * 3; // Even further out
-            
-            const crystalGeo = new THREE.ConeGeometry(0.15 + Math.random() * 0.15, 0.8 + Math.random() * 0.8, 6);
-            const crystalMat = new THREE.MeshPhongMaterial({
-                color: new THREE.Color().setHSL(i / 6 + 0.3, 0.7, 0.4),
-                shininess: 100,
-                transparent: true,
-                opacity: 0.4
-            });
-            const crystal = new THREE.Mesh(crystalGeo, crystalMat);
-            
-            crystal.position.set(
-                Math.cos(angle) * radius,
-                Math.sin(i * 0.8) * 3,
-                Math.sin(angle) * radius - 3
-            );
-            crystal.rotation.x = Math.random() * Math.PI;
-            crystal.rotation.z = Math.random() * Math.PI;
-            
-            crystals.push(crystal);
-            mainGroup3.add(crystal);
-        }
-        scene3.add(mainGroup3);
-        camera3.position.set(0, 5, 15);
-        camera3.lookAt(0, 0, 0);
-        
-        // Create full-page particle system (stars)
-        const fullPageCanvas = document.createElement('canvas');
-        fullPageCanvas.id = 'stars-canvas';
-        fullPageCanvas.style.position = 'fixed';
-        fullPageCanvas.style.top = '0';
-        fullPageCanvas.style.left = '0';
-        fullPageCanvas.style.width = '100%';
-        fullPageCanvas.style.height = '100%';
-        fullPageCanvas.style.zIndex = '0';
-        fullPageCanvas.style.pointerEvents = 'none';
-        document.body.insertBefore(fullPageCanvas, document.body.firstChild);
-        
-        const starsScene = new THREE.Scene();
-        const starsCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const starsRenderer = new THREE.WebGLRenderer({ 
-            canvas: fullPageCanvas,
-            alpha: true,
-            antialias: true
-        });
-        
-        starsRenderer.setSize(window.innerWidth, window.innerHeight);
-        starsRenderer.setClearColor(0x000000, 0);
-        
-        // Add particle system for full page
-        const particleCount = 500;
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlePositions = new Float32Array(particleCount * 3);
-        const particleColors = new Float32Array(particleCount * 3);
-        
-        for(let i = 0; i < particleCount; i++) {
-            particlePositions[i * 3] = (Math.random() - 0.5) * 200;
-            particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 120;
-            particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 160;
-            
-            const color = new THREE.Color().setHSL(Math.random(), 0.8, 0.6);
-            particleColors[i * 3] = color.r;
-            particleColors[i * 3 + 1] = color.g;
-            particleColors[i * 3 + 2] = color.b;
-        }
-        
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
-        
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.2,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.8
-        });
-        
-        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-        starsScene.add(particles);
-        starsCamera.position.z = 10;
-        
-        // Animation variables
-        let time = 0;
-        
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-            time += 0.01;
-            
-            // Animate stars (full page)
-            particles.rotation.y += 0.001;
-            particles.rotation.x += 0.0005;
-            starsRenderer.render(starsScene, starsCamera);
-            
-            // ===== SCENE 1 ANIMATIONS =====
-            mainGroup1.rotation.x = Math.sin(time * 0.5) * 0.1;
-            mainGroup1.rotation.y += 0.005;
-            mainGroup1.rotation.z = Math.cos(time * 0.3) * 0.05;
-            
-            // Building remains stable - no rotation or scaling
-            // core1.rotation.x += 0.01;
-            // core1.rotation.y += 0.015;
-            // core1.scale.setScalar(1 + Math.sin(time * 2) * 0.05);
-            
-            ring1.rotation.z += 0.02;
-            wireframe1.rotation.x -= 0.008;
-            wireframe1.rotation.y += 0.012;
-            
-            orbitElements1.forEach((element, index) => {
-                element.angle += 0.015; // Stable speed for all elements
-                element.mesh.position.set(
-                    Math.cos(element.angle) * element.radius,
-                    Math.sin(element.angle * 1.5 + index) * 1.5,
-                    Math.sin(element.angle) * element.radius
-                );
-                element.mesh.rotation.x += 0.02;
-                element.mesh.rotation.y += 0.03;
-            });
-            
-            camera1.position.x = Math.sin(time * 0.2) * 0.5;
-            camera1.position.y = Math.cos(time * 0.15) * 0.3;
-            camera1.lookAt(0, 0, 0);
-            
-            // ===== SCENE 2 ANIMATIONS =====
-            mainGroup2.rotation.y += 0.005; // Slower base rotation
-            
-            helixElements.forEach((element, index) => {
-                // Only animate if section 2 is active
-                if (currentSection === 1) {
-                    const wave = Math.sin(time * 1.5 + index * 0.2) * 0.15;
-                    const targetScale1 = 1 + wave;
-                    const targetScale2 = 1 - wave;
-                    
-                    // Smooth scale interpolation
-                    element.mesh1.scale.lerp(new THREE.Vector3(targetScale1, targetScale1, targetScale1), 0.1);
-                    element.mesh2.scale.lerp(new THREE.Vector3(targetScale2, targetScale2, targetScale2), 0.1);
-                    
-                    element.mesh1.rotation.x += 0.01;
-                    element.mesh2.rotation.y += 0.01;
-                }
-            });
-            
-            // Smooth camera movement for section 2
-            if (currentSection === 1) {
-                const targetX = Math.sin(time * 0.3) * 1.5 + 6;
-                const targetY = Math.cos(time * 0.2) * 0.8;
-                camera2.position.x += (targetX - camera2.position.x) * 0.05;
-                camera2.position.y += (targetY - camera2.position.y) * 0.05;
-                camera2.lookAt(0, 0, 0);
-            }
-            
-            // ===== SCENE 3 ANIMATIONS =====
-            mainGroup3.rotation.y += 0.003;
-            
-            crystals.forEach((crystal, index) => {
-                crystal.rotation.x += 0.004 + index * 0.0003;
-                crystal.rotation.y += 0.006 + index * 0.0008;
-                crystal.position.y += Math.sin(time * 1.2 + index) * 0.003;
-            });
-            
-            camera3.position.x = Math.sin(time * 0.1) * 1.5;
-            camera3.position.z = 15 + Math.cos(time * 0.08) * 1.5;
-            camera3.lookAt(0, 0, 0);
-            
-            // Render all scenes
-            renderer1.render(scene1, camera1);
-            renderer2.render(scene2, camera2);
-            renderer3.render(scene3, camera3);
-        }
-        
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            const halfWidth = window.innerWidth * 0.5;
-            
-            // Update cameras
-            camera1.aspect = halfWidth / window.innerHeight;
-            camera1.updateProjectionMatrix();
-            renderer1.setSize(halfWidth, window.innerHeight);
-            
-            camera2.aspect = halfWidth / window.innerHeight;
-            camera2.updateProjectionMatrix();
-            renderer2.setSize(halfWidth, window.innerHeight);
-            
-            camera3.aspect = window.innerWidth / window.innerHeight;
-            camera3.updateProjectionMatrix();
-            renderer3.setSize(window.innerWidth, window.innerHeight);
-            
-            // Update stars
-            starsCamera.aspect = window.innerWidth / window.innerHeight;
-            starsCamera.updateProjectionMatrix();
-            starsRenderer.setSize(window.innerWidth, window.innerHeight);
-        });
-        
-        // Mouse interaction
         let mouseX = 0, mouseY = 0;
-        let isMouseOnCanvas1 = false;
-        let isMouseOnCanvas2 = false;
-        let isMouseOnCanvas3 = false;
-        
-        const canvas1 = document.getElementById('three-canvas');
-        const canvas2 = document.getElementById('three-canvas-2');
-        const canvas3 = document.getElementById('three-canvas-3');
-        
-        // Canvas 1 interactions
-        canvas1.addEventListener('mouseenter', () => { isMouseOnCanvas1 = true; });
-        canvas1.addEventListener('mouseleave', () => { isMouseOnCanvas1 = false; });
-        canvas1.addEventListener('mousemove', (event) => {
-            if (isMouseOnCanvas1) {
-                const rect = canvas1.getBoundingClientRect();
-                mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-                mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-                
-                mainGroup1.rotation.y += (mouseX * 0.05 - mainGroup1.rotation.y) * 0.05;
-                mainGroup1.rotation.x += (mouseY * 0.05 - mainGroup1.rotation.x) * 0.05;
-            }
-        });
-        
-        // Canvas 2 interactions
-        canvas2.addEventListener('mousemove', (event) => {
-            const rect = canvas2.getBoundingClientRect();
-            const mx = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-            const my = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-            
-            mainGroup2.rotation.x += (my * 0.1 - mainGroup2.rotation.x) * 0.03;
-            mainGroup2.rotation.z += (mx * 0.1 - mainGroup2.rotation.z) * 0.03;
-        });
-        
-        // Canvas 3 interactions
-        canvas3.addEventListener('mousemove', (event) => {
-            const rect = canvas3.getBoundingClientRect();
-            const mx = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-            const my = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-            
-            crystals.forEach((crystal, index) => {
-                crystal.rotation.y += mx * 0.01 * (index + 1);
-                crystal.rotation.x += my * 0.01 * (index + 1);
-            });
-        });
-        
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                
-                if (targetSection) {
-                    const sectionIndex = Array.from(sections).indexOf(targetSection);
-                    if (sectionIndex !== -1) {
-                        navigateToSection(sectionIndex, true); // Allow skipping for navigation menu
-                    }
-                }
-            });
-        });
-
-        // Navigation dots event listeners
-        document.querySelectorAll('.nav-dot').forEach((dot, index) => {
-            dot.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetSection = parseInt(dot.getAttribute('data-section'));
-                
-                if (targetSection !== currentSection && !isWheelScrolling) {
-                    isWheelScrolling = true;
-                    navigateToSection(targetSection, true); // Allow skipping for dot navigation
-                    
-                    setTimeout(() => {
-                        isWheelScrolling = false;
-                    }, 500);
-                }
-            });
-            
-            // Add hover effect with slight delay
-            dot.addEventListener('mouseenter', () => {
-                dot.style.transform = 'scale(1.3)';
-            });
-            
-            dot.addEventListener('mouseleave', () => {
-                dot.style.transform = 'scale(1)';
-            });
-        });
-
-        // Touch/swipe navigation for mobile and touchpad gestures
-        let touchStartY = 0;
-        let touchEndY = 0;
-        let gestureStartY = 0;
-        let gestureEndY = 0;
-        
-        // Handle touchpad gesture events (for precision touchpads)
-        window.addEventListener('gesturestart', (e) => {
-            e.preventDefault();
-            gestureStartY = e.clientY;
-        }, { passive: false });
-        
-        window.addEventListener('gesturechange', (e) => {
-            e.preventDefault();
-            gestureEndY = e.clientY;
-        }, { passive: false });
-        
-        window.addEventListener('gestureend', (e) => {
-            e.preventDefault();
-            const gestureDiff = gestureStartY - gestureEndY;
-            
-            if (Math.abs(gestureDiff) > 50 && !isWheelScrolling) { // Higher threshold
-                isWheelScrolling = true;
-                
-                const direction = gestureDiff > 0 ? 1 : -1;
-                let targetSection = currentSection + direction;
-                targetSection = Math.max(0, Math.min(sections.length - 1, targetSection));
-                
-                if (targetSection !== currentSection) {
-                    navigateToSection(targetSection);
-                    
-                    setTimeout(() => {
-                        isWheelScrolling = false;
-                    }, 600);
-                } else {
-                    isWheelScrolling = false;
-                }
-            }
-        }, { passive: false });
-        
-        // Enhanced touchpad-specific wheel handling
-        let touchpadScrollAccumulator = 0;
-        let touchpadScrollTimeout;
-        
-        window.addEventListener('wheel', (e) => {
-            // Additional touchpad-specific handling - more conservative
-            if (touchpadDetected && Math.abs(e.deltaY) < 50) {
-                e.preventDefault();
-                
-                touchpadScrollAccumulator += e.deltaY;
-                
-                clearTimeout(touchpadScrollTimeout);
-                touchpadScrollTimeout = setTimeout(() => {
-                    // Very low threshold for fast touchpad response
-                    if (Math.abs(touchpadScrollAccumulator) > 30 && !isWheelScrolling) {
-                        isWheelScrolling = true;
-                        
-                        const direction = touchpadScrollAccumulator > 0 ? 1 : -1;
-                        let targetSection = currentSection + direction;
-                        targetSection = Math.max(0, Math.min(sections.length - 1, targetSection));
-                        
-                        if (targetSection !== currentSection) {
-                            navigateToSection(targetSection);
-                            
-                            setTimeout(() => {
-                                isWheelScrolling = false;
-                            }, 250); // Very fast reset for touchpad
-                        } else {
-                            isWheelScrolling = false;
-                        }
-                    }
-                    touchpadScrollAccumulator = 0;
-                }, 30); // Very fast response
-                
-                return;
-            }
-        }, { passive: false, capture: true });
-        
-        document.addEventListener('touchstart', (e) => {
-            touchStartY = e.changedTouches[0].screenY;
-        }, { passive: true });
-        
-        document.addEventListener('touchend', (e) => {
-            touchEndY = e.changedTouches[0].screenY;
-            handleSwipe();
-        }, { passive: true });
-        
-        function handleSwipe() {
-            const swipeThreshold = 30; // Lower threshold for faster response
-            const diff = touchStartY - touchEndY;
-            
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    // Swipe up - go to next section
-                    const targetSection = Math.min(currentSection + 1, sections.length - 1);
-                    if (targetSection !== currentSection) {
-                        navigateToSection(targetSection);
-                    }
-                } else {
-                    // Swipe down - go to previous section
-                    const targetSection = Math.max(currentSection - 1, 0);
-                    if (targetSection !== currentSection) {
-                        navigateToSection(targetSection);
-                    }
-                }
-            }
-        }
-
-        // Advanced scroll-based section transitions
         let currentSection = 0;
-        const sections = document.querySelectorAll('.section');
-        let isScrolling = false;
 
-        // Initialize first section as active
-        sections[0].classList.add('active');
-
-        // Force scroll to top on page load/refresh
-        window.addEventListener('load', () => {
-            // Force scroll to top
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
-            
-            // Ensure first section is active
-            currentSection = 0;
-            sections.forEach(section => {
-                section.classList.remove('active', 'prev', 'next');
-            });
-            sections[0].classList.add('active');
-            sections[1].classList.add('next');
-            
-            // Update navigation dots
-            updateNavigationDots(0);
-            
-            // Trigger first section animation
-            setTimeout(() => {
-                triggerSceneTransition(0);
-            }, 200);
+        // Custom cursor
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = mouseX - 10 + 'px';
+            cursor.style.top = mouseY - 10 + 'px';
         });
 
-        // Also handle page refresh/reload
-        window.addEventListener('beforeunload', () => {
-            window.scrollTo(0, 0);
-        });
-
-        // Prevent scroll restoration
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-
-        // Intersection Observer for smooth transitions
-        const observerOptions = {
-            root: null,
-            rootMargin: '-30% 0px -30% 0px',
-            threshold: [0.1, 0.5, 0.9]
-        };
-
-        let lastActiveSection = 0;
-
-        const sectionObserver = new IntersectionObserver((entries) => {
-            let maxIntersection = 0;
-            let mostVisibleSection = null;
+        // Section 1: Magnetic Orbs Animation
+        function createMagneticOrbs() {
+            const section1 = document.getElementById('section1');
+            const orbCount = 12;
             
-            entries.forEach(entry => {
-                if (entry.intersectionRatio > maxIntersection) {
-                    maxIntersection = entry.intersectionRatio;
-                    mostVisibleSection = entry.target;
-                }
-            });
-
-            if (mostVisibleSection && maxIntersection > 0.1) {
-                // Remove active class from all sections
-                sections.forEach(section => {
-                    section.classList.remove('active', 'prev', 'next');
-                });
-
-                // Add active class to most visible section
-                const sectionIndex = Array.from(sections).indexOf(mostVisibleSection);
-                mostVisibleSection.classList.add('active');
-                
-                if (sectionIndex !== lastActiveSection) {
-                    currentSection = sectionIndex;
-                    lastActiveSection = sectionIndex;
-
-                    // Add prev/next classes for smooth transitions
-                    if (sectionIndex > 0) {
-                        sections[sectionIndex - 1].classList.add('prev');
-                    }
-                    if (sectionIndex < sections.length - 1) {
-                        sections[sectionIndex + 1].classList.add('next');
-                    }
-
-                    // Trigger 3D scene transitions with delay
-                    triggerSceneTransition(sectionIndex);
-                    
-                    // Update navigation dots
-                    updateNavigationDots(sectionIndex);
-                }
-            }
-        }, observerOptions);
-
-        // Observe all sections
-        sections.forEach(section => {
-            sectionObserver.observe(section);
-        });
-
-        // 3D Scene transition effects
-        function triggerSceneTransition(sectionIndex) {
-            // Reset all animations first
-            gsap.killTweensOf([mainGroup1.scale, mainGroup1.rotation]);
-            
-            if (sectionIndex === 0) {
-                // Dramatic entrance for first scene
-                gsap.set(mainGroup1.scale, {x: 0.5, y: 0.5, z: 0.5});
-                gsap.to(mainGroup1.scale, {
-                    x: 1, y: 1, z: 1,
-                    duration: 0.8,
-                    ease: "back.out(1.7)"
-                });
-                gsap.to(mainGroup1.rotation, {
-                    y: mainGroup1.rotation.y + Math.PI,
-                    duration: 1.2,
-                    ease: "power2.out"
-                });
-            } else if (sectionIndex === 1) {
-                // Reset helix elements first
-                helixElements.forEach((element, index) => {
-                    gsap.killTweensOf([element.mesh1.position, element.mesh2.position, element.mesh1.scale, element.mesh2.scale]);
-                    
-                    // Set initial positions
-                    gsap.set([element.mesh1, element.mesh2], {
-                        scale: 0.5,
-                        rotationX: 0,
-                        rotationY: 0
-                    });
-                    
-                    // Animate entrance
-                    gsap.to([element.mesh1, element.mesh2], {
-                        scale: 1,
-                        duration: 0.6,
-                        delay: index * 0.02,
-                        ease: "elastic.out(1, 0.5)"
-                    });
-                    
-                    // Add rotation animation
-                    gsap.to([element.mesh1, element.mesh2], {
-                        rotationY: Math.PI * 2,
-                        duration: 1.5,
-                        delay: index * 0.01,
-                        ease: "power2.out"
-                    });
-                });
-                
-                // Animate main group
-                gsap.set(mainGroup2.rotation, {y: 0});
-                gsap.to(mainGroup2.rotation, {
-                    y: Math.PI * 0.5,
-                    duration: 1,
-                    ease: "power2.inOut"
-                });
-                
-            } else if (sectionIndex === 2) {
-                // Reset crystals first
-                crystals.forEach((crystal, index) => {
-                    gsap.killTweensOf([crystal.scale, crystal.rotation]);
-                    
-                    gsap.set(crystal.scale, {x: 0, y: 0, z: 0});
-                    gsap.to(crystal.scale, {
-                        x: 1, y: 1, z: 1,
-                        duration: 0.8,
-                        delay: index * 0.05,
-                        ease: "elastic.out(1, 0.5)"
-                    });
-                    gsap.to(crystal.rotation, {
-                        y: crystal.rotation.y + Math.PI,
-                        duration: 1.2,
-                        delay: index * 0.02,
-                        ease: "power2.out"
-                    });
-                });
-            }
-        }
-
-        // Wheel/touch scroll detection for enhanced transitions
-        let scrollTimeout;
-        let lastScrollY = 0;
-        let scrollDirection = '';
-        
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            scrollDirection = scrollY > lastScrollY ? 'down' : 'up';
-            lastScrollY = scrollY;
-            
-            if (!isScrolling && !isWheelScrolling) {
-                isScrolling = true;
-                
-                // Add scroll effect to stars - REMOVED
-                const maxScroll = document.body.scrollHeight - window.innerHeight;
-                const scrollProgress = Math.min(scrollY / maxScroll, 1);
-                
-                // Parallax effect on stars - REMOVED to keep stars stable
-                // particles.rotation.y = scrollProgress * Math.PI * 0.3;
-                // particles.position.z = scrollProgress * 3 - 1.5;
+            for (let i = 0; i < orbCount; i++) {
+                const orb = document.createElement('div');
+                orb.className = 'magnetic-orb';
+                orb.style.left = Math.random() * window.innerWidth + 'px';
+                orb.style.top = Math.random() * window.innerHeight + 'px';
+                section1.appendChild(orb);
             }
 
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                isScrolling = false;
-            }, 100);
-        }, { passive: true });
-
-        // Additional mouse wheel handler for better compatibility
-        window.addEventListener('mousewheel', (e) => {
-            e.preventDefault();
-            
-            if (isWheelScrolling) return;
-            
-            const delta = e.wheelDelta || -e.detail;
-            const direction = delta > 0 ? -1 : 1;
-            
-            let targetSection = currentSection + direction;
-            targetSection = Math.max(0, Math.min(sections.length - 1, targetSection));
-            
-            if (targetSection !== currentSection) {
-                isWheelScrolling = true;
-                navigateToSection(targetSection);
-                
-                setTimeout(() => {
-                    isWheelScrolling = false;
-                }, 400);
-            }
-        }, { passive: false });
-
-        // Firefox specific wheel handler
-        window.addEventListener('DOMMouseScroll', (e) => {
-            e.preventDefault();
-            
-            if (isWheelScrolling) return;
-            
-            const direction = e.detail > 0 ? 1 : -1;
-            let targetSection = currentSection + direction;
-            targetSection = Math.max(0, Math.min(sections.length - 1, targetSection));
-            
-            if (targetSection !== currentSection) {
-                isWheelScrolling = true;
-                navigateToSection(targetSection);
-                
-                setTimeout(() => {
-                    isWheelScrolling = false;
-                }, 400);
-            }
-        }, { passive: false });
-
-        // Enhanced mouse wheel for section snapping
-        let wheelTimeout;
-        let wheelDelta = 0;
-        let isWheelScrolling = false;
-        let consecutiveWheelEvents = 0;
-        let lastWheelTime = 0;
-        let touchpadDetected = false;
-        
-        // Detect if using touchpad vs mouse wheel
-        function detectTouchpad(e) {
-            // Touchpad events typically have smaller, more frequent deltaY values
-            if (Math.abs(e.deltaY) < 40 && e.deltaMode === 0) {
-                touchpadDetected = true;
-            } else if (Math.abs(e.deltaY) >= 100) {
-                touchpadDetected = false;
-            }
-        }
-        
-        window.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            
-            detectTouchpad(e);
-            
-            const currentTime = Date.now();
-            const timeDiff = currentTime - lastWheelTime;
-            lastWheelTime = currentTime;
-            
-            // Reset if too much time passed between wheel events
-            if (timeDiff > (touchpadDetected ? 50 : 200)) {
-                wheelDelta = 0;
-                consecutiveWheelEvents = 0;
-            }
-            
-            if (isWheelScrolling) return;
-            
-            // Accumulate wheel delta
-            wheelDelta += e.deltaY;
-            consecutiveWheelEvents++;
-            
-            clearTimeout(wheelTimeout);
-            
-            // More conservative thresholds to prevent skipping sections
-            const delay = touchpadDetected ? 20 : 50;
-            const threshold = touchpadDetected ? 15 : (Math.abs(e.deltaY) > 100 ? 80 : 40);
-            
-            wheelTimeout = setTimeout(() => {
-                // Only move one section at a time
-                if (Math.abs(wheelDelta) > threshold) {
-                    isWheelScrolling = true;
-                    
-                    const direction = wheelDelta > 0 ? 1 : -1;
-                    let targetSection = currentSection + direction;
-                    
-                    // Clamp to valid section range
-                    targetSection = Math.max(0, Math.min(sections.length - 1, targetSection));
-                    
-                    if (targetSection !== currentSection) {
-                        // Navigate to target section
-                        navigateToSection(targetSection);
+            document.addEventListener('mousemove', (e) => {
+                if (isInViewport(section1)) {
+                    const orbs = section1.querySelectorAll('.magnetic-orb');
+                    orbs.forEach((orb, index) => {
+                        const rect = orb.getBoundingClientRect();
+                        const orbCenterX = rect.left + rect.width / 2;
+                        const orbCenterY = rect.top + rect.height / 2;
                         
-                        setTimeout(() => {
-                            isWheelScrolling = false;
-                        }, touchpadDetected ? 250 : 500); // Much shorter lock for touchpad
-                    } else {
-                        isWheelScrolling = false;
-                    }
-                } else {
-                    // Not enough movement, allow next wheel event
-                    isWheelScrolling = false;
-                }
-                
-                wheelDelta = 0;
-                consecutiveWheelEvents = 0;
-            }, delay);
-        }, { passive: false });
-
-        // Enhanced navigation function
-        function navigateToSection(sectionIndex, allowSkipping = false) {
-            if (sectionIndex >= 0 && sectionIndex < sections.length && sectionIndex !== currentSection) {
-                // Prevent rapid section changes
-                const previousSection = currentSection;
-                
-                // Only allow moving to adjacent sections (no skipping) unless specifically allowed
-                if (!allowSkipping && Math.abs(sectionIndex - previousSection) > 1) {
-                    return; // Don't allow skipping sections
-                }
-                
-                // Immediately update current section
-                currentSection = sectionIndex;
-                
-                // Update navigation dots
-                updateNavigationDots(sectionIndex);
-                
-                // Smooth scroll to section for better UX
-                sections[sectionIndex].scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // Force update section states immediately
-                sections.forEach(section => {
-                    section.classList.remove('active', 'prev', 'next');
-                });
-                
-                sections[sectionIndex].classList.add('active');
-                
-                if (sectionIndex > 0) {
-                    sections[sectionIndex - 1].classList.add('prev');
-                }
-                if (sectionIndex < sections.length - 1) {
-                    sections[sectionIndex + 1].classList.add('next');
-                }
-                
-                // Trigger 3D transitions with small delay for smooth effect
-                setTimeout(() => {
-                    triggerSceneTransition(sectionIndex);
-                }, 100);
-            }
-        }
-
-        // Update navigation dots
-        function updateNavigationDots(activeIndex) {
-            const dots = document.querySelectorAll('.nav-dot');
-            dots.forEach((dot, index) => {
-                if (index === activeIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
+                        const deltaX = e.clientX - orbCenterX;
+                        const deltaY = e.clientY - orbCenterY;
+                        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                        
+                        const maxDistance = 200;
+                        const influence = Math.max(0, 1 - distance / maxDistance);
+                        
+                        const moveX = deltaX * influence * 0.3;
+                        const moveY = deltaY * influence * 0.3;
+                        
+                        orb.style.transform = `translate(${moveX}px, ${moveY}px) scale(${1 + influence * 0.5})`;
+                        orb.style.opacity = 0.7 + influence * 0.3;
+                    });
                 }
             });
         }
 
-        // Keyboard navigation
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-                e.preventDefault();
-                let targetSection = Math.min(currentSection + 1, sections.length - 1);
-                if (targetSection !== currentSection) {
-                    navigateToSection(targetSection);
-                }
-            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-                e.preventDefault();
-                let targetSection = Math.max(currentSection - 1, 0);
-                if (targetSection !== currentSection) {
-                    navigateToSection(targetSection);
-                }
-            } else if (e.key >= '1' && e.key <= '3') {
-                // Direct navigation with number keys
-                e.preventDefault();
-                const targetSection = parseInt(e.key) - 1;
-                if (targetSection !== currentSection) {
-                    navigateToSection(targetSection);
-                }
+        // Section 2: Geometric Grid Animation
+        function createGeometricGrid() {
+            const section2 = document.getElementById('section2');
+            const gridSize = 10;
+            const gridItems = [];
+            
+            for (let i = 0; i < gridSize * gridSize; i++) {
+                const item = document.createElement('div');
+                item.classList.add('grid-item');
+                
+                const size = 100 / gridSize;
+                item.style.width = `${size}%`;
+                item.style.height = `${size}%`;
+                
+                item.style.left = `${(i % gridSize) * size}%`;
+                item.style.top = `${Math.floor(i / gridSize) * size}%`;
+                
+                section2.appendChild(item);
+                gridItems.push(item);
             }
+
+            document.addEventListener('mousemove', (e) => {
+                if (isInViewport(section2)) {
+                    gridItems.forEach(item => {
+                        const rect = item.getBoundingClientRect();
+                        const centerX = rect.left + rect.width / 2;
+                        const centerY = rect.top + rect.height / 2;
+                        
+                        const distanceX = e.clientX - centerX;
+                        const distanceY = e.clientY - centerY;
+                        
+                        const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                        const maxDistance = 300;
+                        
+                        if (distance < maxDistance) {
+                            const rotateX = (distanceY / maxDistance) * 20;
+                            const rotateY = (distanceX / maxDistance) * 20;
+                            
+                            item.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                            item.style.background = `rgba(255, 255, 255, ${0.3 - distance/1000})`;
+                        } else {
+                            item.style.transform = 'perspective(500px) rotateX(0) rotateY(0)';
+                            item.style.background = 'rgba(255, 255, 255, 0.1)';
+                        }
+                    });
+                }
+            });
+        }
+
+        // Section 3: Particle System Animation
+        function createParticleSystem() {
+            const section3 = document.getElementById('section3');
+            const particleCount = 100;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                section3.appendChild(particle);
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                if (isInViewport(section3)) {
+                    const particles = section3.querySelectorAll('.particle');
+                    particles.forEach((particle, index) => {
+                        const rect = particle.getBoundingClientRect();
+                        const particleCenterX = rect.left + rect.width / 2;
+                        const particleCenterY = rect.top + rect.height / 2;
+                        
+                        const deltaX = e.clientX - particleCenterX;
+                        const deltaY = e.clientY - particleCenterY;
+                        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                        
+                        const maxDistance = 150;
+                        const influence = Math.max(0, 1 - distance / maxDistance);
+                        
+                        const moveX = deltaX * influence * 0.5;
+                        const moveY = deltaY * influence * 0.5;
+                        const opacity = 0.3 + influence * 0.7;
+                        const scale = 1 + influence * 3;
+                        
+                        particle.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scale})`;
+                        particle.style.opacity = opacity;
+                        particle.style.boxShadow = `0 0 ${10 + influence * 20}px rgba(255, 255, 255, ${influence})`;
+                    });
+                }
+            });
+        }
+
+        // Section 4: Liquid Morphing Animation
+        function createLiquidBlobs() {
+            const section4 = document.getElementById('section4');
+            const blobCount = 8;
+            
+            for (let i = 0; i < blobCount; i++) {
+                const blob = document.createElement('div');
+                blob.className = 'liquid-blob';
+                blob.style.left = Math.random() * window.innerWidth + 'px';
+                blob.style.top = Math.random() * window.innerHeight + 'px';
+                section4.appendChild(blob);
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                if (isInViewport(section4)) {
+                    const blobs = section4.querySelectorAll('.liquid-blob');
+                    blobs.forEach((blob, index) => {
+                        const rect = blob.getBoundingClientRect();
+                        const blobCenterX = rect.left + rect.width / 2;
+                        const blobCenterY = rect.top + rect.height / 2;
+                        
+                        const deltaX = e.clientX - blobCenterX;
+                        const deltaY = e.clientY - blobCenterY;
+                        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                        
+                        const maxDistance = 250;
+                        const influence = Math.max(0, 1 - distance / maxDistance);
+                        
+                        const moveX = deltaX * influence * 0.4;
+                        const moveY = deltaY * influence * 0.4;
+                        const scaleX = 1 + influence * 1.5;
+                        const scaleY = 1 + influence * 0.5;
+                        const skewX = deltaX * influence * 0.1;
+                        const skewY = deltaY * influence * 0.1;
+                        
+                        blob.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleX}, ${scaleY}) skew(${skewX}deg, ${skewY}deg)`;
+                        blob.style.borderRadius = `${50 - influence * 30}% ${50 + influence * 30}% ${50 + influence * 20}% ${50 - influence * 20}%`;
+                    });
+                }
+            });
+        }
+
+        // Section 5: 3D Floating Cards Animation
+        function createFloatingCards() {
+            const section5 = document.getElementById('section5');
+            const cardCount = 20;
+            
+            for (let i = 0; i < cardCount; i++) {
+                const card = document.createElement('div');
+                card.className = 'floating-card';
+                card.style.left = Math.random() * window.innerWidth + 'px';
+                card.style.top = Math.random() * window.innerHeight + 'px';
+                section5.appendChild(card);
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                if (isInViewport(section5)) {
+                    const cards = section5.querySelectorAll('.floating-card');
+                    cards.forEach((card, index) => {
+                        const rect = card.getBoundingClientRect();
+                        const cardCenterX = rect.left + rect.width / 2;
+                        const cardCenterY = rect.top + rect.height / 2;
+                        
+                        const deltaX = e.clientX - cardCenterX;
+                        const deltaY = e.clientY - cardCenterY;
+                        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                        
+                        const maxDistance = 200;
+                        const influence = Math.max(0, 1 - distance / maxDistance);
+                        
+                        const rotateY = deltaX * influence * 0.3;
+                        const rotateX = -deltaY * influence * 0.3;
+                        const translateZ = influence * 50;
+                        const scale = 1 + influence * 0.2;
+                        
+                        card.style.transform = `
+                            rotateY(${rotateY}deg) 
+                            rotateX(${rotateX}deg) 
+                            translateZ(${translateZ}px) 
+                            scale(${scale})
+                        `;
+                        card.style.opacity = 0.3 + influence * 0.7;
+                        card.style.boxShadow = `0 ${8 + influence * 20}px ${32 + influence * 20}px rgba(0, 0, 0, ${0.1 + influence * 0.3})`;
+                    });
+                }
+            });
+        }
+
+        // Helper function to check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return rect.top < window.innerHeight && rect.bottom > 0;
+        }
+
+        // Navigation
+        function scrollToSection(index) {
+            const sections = document.querySelectorAll('.section');
+            sections[index].scrollIntoView({ behavior: 'smooth' });
+            
+            // Update active nav dot
+            document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        // Update nav on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const scrollPos = window.scrollY + window.innerHeight / 2;
+            
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                const sectionTop = rect.top + window.scrollY;
+                const sectionBottom = sectionTop + rect.height;
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+                    document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                    });
+                }
+            });
         });
-        
-        // Start animation
-        animate();
+
+        // Initialize all animations
+        window.addEventListener('load', () => {
+            createMagneticOrbs();
+            createGeometricGrid();
+            createParticleSystem();
+            createLiquidBlobs();
+            createFloatingCards();
+        });
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            // Clear existing elements and recreate
+            document.querySelectorAll('.magnetic-orb, .grid-item, .particle, .liquid-blob, .floating-card').forEach(el => el.remove());
+            setTimeout(() => {
+                createMagneticOrbs();
+                createGeometricGrid();
+                createParticleSystem();
+                createLiquidBlobs();
+                createFloatingCards();
+            }, 100);
+        });
     </script>
 </body>
 </html>
